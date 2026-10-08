@@ -7,8 +7,11 @@
       "settings": {
         "col1_heading": "Connect with us",
         "col1_l1": "Call",
+        "col1_u1": "tel:+919511948736",
         "col1_l2": "Instagram",
+        "col1_u2": "https://www.instagram.com/nishorama",
         "col1_l3": "YouTube",
+        "col1_u3": "https://www.youtube.com/channel/UCoxGe5RNOXVRUboMmW0DLHA",
         "col2_heading": "Order Support",
         "col2_l1": "Make a return/Exchange",
         "col2_l2": "Refund/Exchange policy",

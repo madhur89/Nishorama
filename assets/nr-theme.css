@@ -50,7 +50,8 @@ body.nr-theme .page-wrapper {
 
 body.nr-theme #shopify-section-cart-drawer-section,
 body.nr-theme .theme-drawer:not(.nr-search-modal),
-body.nr-theme chat-drawer {
+body.nr-theme chat-drawer,
+body.nr-theme .nr-fabric-cart-hidden {
   display: none !important;
 }
 
@@ -85,6 +86,15 @@ body.nr-theme chat-drawer {
 
 body.nr-theme .content-for-layout {
   overflow-x: hidden;
+}
+
+#header-group {
+  position: relative;
+  z-index: 40;
+}
+
+#header-group .shopify-section {
+  min-height: 0;
 }
 
 .nr-header .nav-search .header__icon {
