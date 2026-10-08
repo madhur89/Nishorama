@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="{{ 'nr-featured.css' | asset_url }}">
+{%- liquid
+  assign products = null
+  if section.settings.collection != blank
+    assign products = section.settings.collection.products
+  endif
+-%}
+<section class="nr-featured collection">
+  <div class="nr-featured__head collection__title">
+    <h2 class="nr-featured__title title{% if section.settings.script_heading %} nr-featured__title--script{% endif %}">{{ section.settings.heading }}</h2>
+    {%- if section.settings.more_label != blank -%}
+      <a class="nr-featured__more" href="{{ section.settings.more_url | default: routes.all_products_collection_url }}">{{ section.settings.more_label }}</a>
+    {%- endif -%}
+  </div>
+  <div class="nr-featured__track">
+    {%- if products != blank -%}
+      {%- for product in products limit: section.settings.limit -%}
+        {% render 'nr-product-card', product: product, badge: section.settings.badge %}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for block in section.blocks -%}
+        {% render 'nr-product-card',
+          product: block.settings.product,
+          badge: block.settings.badge | default: section.settings.badge,
+          fallback_image: block.settings.fallback_image,
+          fallback_hover: block.settings.fallback_hover,
+          fallback_title: block.settings.fallback_title,
+          fallback_price: block.settings.fallback_price,
+          fallback_url: block.settings.fallback_url
+        %}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "NR Featured carousel",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "New Ins" },
+    { "type": "checkbox", "id": "script_heading", "label": "Handwritten heading", "default": false },
+    { "type": "text", "id": "more_label", "label": "Discover more label", "default": "Discover More" },
+    { "type": "url", "id": "more_url", "label": "Discover more URL" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "limit", "min": 4, "max": 16, "step": 1, "label": "Products", "default": 8 },
+    { "type": "text", "id": "badge", "label": "Default badge", "default": "New In" }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Fallback product",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text", "id": "badge", "label": "Badge" },
+        { "type": "text", "id": "fallback_title", "label": "Fallback title" },
+        { "type": "text", "id": "fallback_price", "label": "Fallback price", "default": "Rs. 1,799" },
+        { "type": "text", "id": "fallback_image", "label": "Fallback image URL" },
+        { "type": "text", "id": "fallback_hover", "label": "Fallback hover URL" },
+        { "type": "text", "id": "fallback_url", "label": "Fallback URL" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "NR Featured carousel" }]
+}
+{% endschema %}

@@ -1,0 +1,19 @@
+{%- doc -%}
+  Renders an image from a picker, or a live-site fallback URL.
+  @param {object} image - Shopify image
+  @param {string} fallback - CDN URL
+  @param {string} [class] - CSS class
+  @param {string} [alt]
+  @param {boolean} [mobile]
+{%- enddoc -%}
+{%- liquid
+  assign cls = class | default: ''
+  if mobile
+    assign cls = cls | append: ' nr-img-mobile mobile'
+  endif
+-%}
+{%- if image != blank -%}
+  {{ image | image_url: width: 2000 | image_tag: class: cls, alt: alt, loading: 'lazy' }}
+{%- else -%}
+  <img src="{{ fallback }}" alt="{{ alt | escape }}" class="{{ cls }}" loading="lazy">
+{%- endif -%}

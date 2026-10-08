@@ -1,0 +1,76 @@
+{%- doc -%}
+  Product card matching Nishorama homepage carousels.
+  @param {product} product
+  @param {string} [badge]
+  @param {string} [fallback_image]
+  @param {string} [fallback_hover]
+  @param {string} [fallback_title]
+  @param {string} [fallback_price]
+  @param {string} [fallback_url]
+{%- enddoc -%}
+{%- liquid
+  assign card_product = product
+  assign title = fallback_title | default: 'Product'
+  assign url = fallback_url | default: routes.all_products_collection_url
+  assign img = fallback_image
+  assign hover = fallback_hover | default: fallback_image
+  assign price_text = fallback_price | default: ''
+  if card_product != blank
+    assign title = card_product.title
+    assign url = card_product.url
+    if card_product.featured_image
+      assign img = card_product.featured_image | image_url: width: 800
+    endif
+    if card_product.images[1]
+      assign hover = card_product.images[1] | image_url: width: 800
+    elsif card_product.featured_image
+      assign hover = card_product.featured_image | image_url: width: 800
+    endif
+    assign price_text = card_product.price | money_without_trailing_zeros
+  endif
+-%}
+<article class="nr-card">
+  <div class="nr-card__media">
+    {%- if badge != blank -%}
+      <div class="cust-badges-wrapper">
+        <span class="cust-choice-badge">{{ badge }}</span>
+      </div>
+    {%- endif -%}
+    <a href="{{ url }}">
+      <img src="{{ img }}" alt="{{ title | escape }}" class="nr-card__img" width="500" height="667" loading="lazy">
+      {%- if hover != blank -%}
+        <img src="{{ hover }}" alt="" class="nr-card__img--hover" width="500" height="667" loading="lazy">
+      {%- endif -%}
+    </a>
+    {%- if card_product != blank -%}
+      <product-form>
+        {%- form 'product', card_product, is: 'product-form' -%}
+          <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}">
+          <button type="submit" class="nr-card__add" name="add">
+            <span>
+              <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#482922" stroke-width="1.2"/></svg>
+            </span>
+            <p>Add</p>
+          </button>
+        {%- endform -%}
+      </product-form>
+    {%- else -%}
+      <a class="nr-card__add" href="{{ url }}">
+        <span>
+          <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#482922" stroke-width="1.2"/></svg>
+        </span>
+        <p>Add</p>
+      </a>
+    {%- endif -%}
+  </div>
+  <div class="nr-card__info">
+    <a class="nr-card__title" href="{{ url }}">{{ title }}</a>
+    <div class="nr-card__price">
+      {%- if card_product != blank -%}
+        Regular price ( {{ price_text }} )
+      {%- else -%}
+        Regular price ( {{ price_text }} )
+      {%- endif -%}
+    </div>
+  </div>
+</article>

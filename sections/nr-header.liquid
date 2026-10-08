@@ -1,0 +1,330 @@
+{%- liquid
+  assign is_home = false
+  if template.name == 'index'
+    assign is_home = true
+  endif
+  assign cart_count = cart.item_count
+-%}
+
+<link rel="stylesheet" href="{{ 'nr-header.css' | asset_url }}">
+
+<div class="section-header nr-section-header">
+  <div class="header-wrapper nr-header-wrapper color-scheme-1">
+    <header class="nr-header header header--middle-left page-width header--has-menu{% if is_home %} home-page is-at-top{% else %} not-home-page{% endif %}">
+      <div class="cust-header-main">
+        <p class="mob-notification-text mobile">{{ section.settings.announcement | default: '10% OFF Automatically Applied on Orders ₹2,599+' }}</p>
+
+        <div class="cust-header-left desktop">
+          <div class="cust-menu-bar" role="button" tabindex="0" aria-label="Menu">
+            <div class="hamburger-menu"><span></span><span></span></div>
+            <p class="cust-menu-text">Menu</p>
+          </div>
+          <div class="cust-header-logo">
+            <a href="{{ routes.root_url }}">{% render 'nr-logo' %}</a>
+          </div>
+        </div>
+
+        <div class="cust-header-middle">
+          <ul class="nav-links">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'pill' -%}
+                <li class="{% if block.settings.red_dot %}red-dot-main{% endif %}" {{ block.shopify_attributes }}>
+                  <a href="{{ block.settings.url | default: '#' }}">{{ block.settings.label }}</a>
+                  {%- if block.settings.red_dot -%}<span class="cust-red-dot"></span>{%- endif -%}
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+
+        <p class="home-page-line"><pre>{{ section.settings.tagline | default: '" YOU know where to GET  IT "' }}</pre></p>
+
+        <div class="cust-header-right">
+          {%- if section.settings.show_offer -%}
+            <div class="offer-line desktop" onclick="window.location.href='{{ section.settings.offer_url | default: '/collections/goodbyedeals' }}'">
+              <p class="offer-text">{{ section.settings.offer_text | default: 'Leaving soon' }}</p>
+              <p class="offer-discount">{{ section.settings.offer_badge | default: '30% OFF' }}</p>
+            </div>
+          {%- endif -%}
+          <ul class="nav-header-right">
+            <li class="header-story-main" data-nr-story-open>
+              <div class="header-logo-gradient desktop">
+                <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" fill="none">
+                  <defs>
+                    <linearGradient id="nr-story-g" x1="0" y1="0" x2="200" y2="200">
+                      <stop offset="0%" stop-color="#0074FF"></stop>
+                      <stop offset="33%" stop-color="#4B52B4"></stop>
+                      <stop offset="66%" stop-color="#B92046"></stop>
+                      <stop offset="100%" stop-color="#FF0000"></stop>
+                    </linearGradient>
+                  </defs>
+                  <circle cx="100" cy="100" r="96" fill="none" stroke="url(#nr-story-g)" stroke-width="8"></circle>
+                </svg>
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="#482922"><path d="M9 0a4.5 4.5 0 0 1 2.6 8.2A6 6 0 0 1 15 14H3a6 6 0 0 1 3.4-5.8A4.5 4.5 0 0 1 9 0Z"/></svg>
+                </span>
+              </div>
+            </li>
+            <li class="nav-wishlist">
+              <a class="wishlist-logo" href="{{ routes.account_url }}" aria-label="Wishlist">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.4-9.5-8.2C.6 9.8 2 6 5.5 6c2 0 3.2 1.1 3.7 2 .5-.9 1.7-2 3.7-2C16.4 6 17.8 9.8 16 12.8 13.5 16.6 12 21 12 21Z" fill="#482922"/></svg>
+              </a>
+            </li>
+            <li class="nav-search">
+              <button class="header__icon" type="button" data-nr-search-open aria-label="Search">
+                <span class="svg-wrapper">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#482922" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                </span>
+              </button>
+            </li>
+            <li class="nav-accounts">
+              <a class="accounts-logo" href="{{ routes.account_url }}" aria-label="Account">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#482922" stroke-width="1.6"><circle cx="12" cy="8" r="3.2"/><path d="M5 19c1.5-3 4-4.5 7-4.5S17.5 16 19 19"/></svg>
+              </a>
+            </li>
+            <li class="nav-cart">
+              <a href="{{ routes.cart_url }}" data-nr-cart-open>
+                <span class="cust-cart">Cart</span>
+                <span class="cust-empty-zero">{{ cart_count }}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="header-mob-center-new nr-hide-desktop">
+          <div class="header-mob-logo"><a href="{{ routes.root_url }}">{% render 'nr-logo' %}</a></div>
+        </div>
+      </div>
+
+      <div class="header-menu-wrapper" aria-hidden="true">
+        <div class="header-menu-main">
+          <div class="menu-upper">
+            <div class="menu-upper-left">
+              <ul>
+                {%- for block in section.blocks -%}
+                  {%- if block.type == 'featured_link' -%}
+                    <li class="{% if block.settings.badge != blank %}menu-discount{% endif %}" {{ block.shopify_attributes }}>
+                      <a href="{{ block.settings.url | default: '#' }}">{{ block.settings.label }}</a>
+                      {%- if block.settings.badge != blank -%}<span>{{ block.settings.badge }}</span>{%- endif -%}
+                    </li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            </div>
+            <div class="menu-upper-right">
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'column' -%}
+                  <div class="menu-column" {{ block.shopify_attributes }}>
+                    <h4>{{ block.settings.heading }}</h4>
+                    <ul>
+                      {%- if block.settings.link_1_label != blank -%}
+                        <li class="{% if block.settings.link_1_badge_style == 'yellow' %}yellow-tag{% elsif block.settings.link_1_badge_style == 'red' %}red-tag{% endif %}{% if block.settings.link_1_italic %} column-italic{% endif %}">
+                          <a href="{{ block.settings.link_1_url | default: '#' }}">{{ block.settings.link_1_label }}</a>
+                          {%- if block.settings.link_1_badge != blank -%}<span>{{ block.settings.link_1_badge }}</span>{%- endif -%}
+                        </li>
+                      {%- endif -%}
+                      {%- if block.settings.link_2_label != blank -%}<li><a href="{{ block.settings.link_2_url | default: '#' }}">{{ block.settings.link_2_label }}</a></li>{%- endif -%}
+                      {%- if block.settings.link_3_label != blank -%}<li><a href="{{ block.settings.link_3_url | default: '#' }}">{{ block.settings.link_3_label }}</a></li>{%- endif -%}
+                      {%- if block.settings.link_4_label != blank -%}<li><a href="{{ block.settings.link_4_url | default: '#' }}">{{ block.settings.link_4_label }}</a></li>{%- endif -%}
+                      {%- if block.settings.link_5_label != blank -%}<li><a href="{{ block.settings.link_5_url | default: '#' }}">{{ block.settings.link_5_label }}</a></li>{%- endif -%}
+                      {%- if block.settings.link_6_label != blank -%}<li><a href="{{ block.settings.link_6_url | default: '#' }}">{{ block.settings.link_6_label }}</a></li>{%- endif -%}
+                      {%- if block.settings.link_7_label != blank -%}<li><a href="{{ block.settings.link_7_url | default: '#' }}">{{ block.settings.link_7_label }}</a></li>{%- endif -%}
+                      {%- if block.settings.link_8_label != blank -%}<li class="column-italic"><a href="{{ block.settings.link_8_url | default: '#' }}">{{ block.settings.link_8_label }}</a></li>{%- endif -%}
+                    </ul>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+          <div class="menu-bottom">
+            <div class="menu-bottom-left">
+              <img src="{% if section.settings.menu_image_1 %}{{ section.settings.menu_image_1 | image_url: width: 900 }}{% else %}https://cdn.shopify.com/s/files/1/0801/1844/8355/files/download_-_2026-05-06T003635.711_2x_48655b4e-c56b-4bf5-b03a-42fa834eb33c.png?v=1779950160{% endif %}" alt="menu-image-1" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div class="menu-bottom-middle">
+              <img src="{% if section.settings.menu_image_2 %}{{ section.settings.menu_image_2 | image_url: width: 1200 }}{% else %}https://cdn.shopify.com/s/files/1/0801/1844/8355/files/adfjpeg_2x_839aa034-da36-4b82-9fef-b03a-42fa834eb33c.png?v=1779950160{% endif %}" alt="menu-image-2" style="width:100%;height:100%;object-fit:cover;" onerror="this.src='https://cdn.shopify.com/s/files/1/0801/1844/8355/files/adfjpeg_2x_839aa034-da36-4b82-9fef-f52197e1974c.png?v=1779950160'">
+            </div>
+            <div class="menu-bottom-right">
+              <img src="{% if section.settings.menu_image_3 %}{{ section.settings.menu_image_3 | image_url: width: 900 }}{% else %}https://cdn.shopify.com/s/files/1/0801/1844/8355/files/download_-_2026-05-06T003703.332_2x_d8f4dc0a-84bd-4420-997c-ba5834da41f2.png?v=1779950160{% endif %}" alt="menu-image-3" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+          </div>
+        </div>
+        <div class="header-menu-footer">
+          <div class="menu-footer-left">
+            <div class="inner-left-main">
+              <div class="contact-support-box">
+                <div class="contact-support">
+                  <div class="desc-box">
+                    <span>Contact Support</span>
+                    <span>{{ section.settings.support_hours | default: 'Revert within 24-48 Working Hours' }}</span>
+                  </div>
+                </div>
+                <div class="contact-support">
+                  <span><a href="mailto:{{ section.settings.email | default: 'support@nishorama.com' }}">{{ section.settings.email | default: 'support@nishorama.com' }}</a></span>
+                  <span><a href="tel:{{ section.settings.phone | default: '+919511948736' }}">{{ section.settings.phone_label | default: '+91 9511948736' }}</a></span>
+                </div>
+              </div>
+            </div>
+            <div class="order-support-box">
+              <div class="desc-box">
+                <span>Order Status</span>
+                <span><a href="{{ section.settings.faq_url | default: '/pages/faqs' }}">FAQ's</a></span>
+              </div>
+            </div>
+          </div>
+          <div class="menu-footer-right">
+            <ul>
+              <li><a href="{{ section.settings.privacy_url | default: '/pages/privacy-policy' }}">Privacy Policy</a></li>
+              <li><a href="{{ section.settings.terms_url | default: '/pages/terms-of-service' }}">Terms of Service</a></li>
+              <li><a href="{{ section.settings.returns_url | default: '/pages/copy-of-return-and-exchange-policy' }}">Return & Exchange Policy</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-mob-menu-wrapper">
+        <div class="header-mob-main">
+          <div class="header-mob-upper">
+            <ul>
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'featured_link' -%}
+                  <li><a href="{{ block.settings.url | default: '#' }}">{{ block.settings.label }}</a></li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+          <div class="header-mob-acc">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'column' -%}
+                <div class="acc-header"><h3>{{ block.settings.heading }}</h3><span>+</span></div>
+                <div class="acc-content">
+                  {%- if block.settings.link_1_label != blank -%}<a href="{{ block.settings.link_1_url | default: '#' }}">{{ block.settings.link_1_label }}</a>{%- endif -%}
+                  {%- if block.settings.link_2_label != blank -%}<a href="{{ block.settings.link_2_url | default: '#' }}">{{ block.settings.link_2_label }}</a>{%- endif -%}
+                  {%- if block.settings.link_3_label != blank -%}<a href="{{ block.settings.link_3_url | default: '#' }}">{{ block.settings.link_3_label }}</a>{%- endif -%}
+                  {%- if block.settings.link_4_label != blank -%}<a href="{{ block.settings.link_4_url | default: '#' }}">{{ block.settings.link_4_label }}</a>{%- endif -%}
+                  {%- if block.settings.link_5_label != blank -%}<a href="{{ block.settings.link_5_url | default: '#' }}">{{ block.settings.link_5_label }}</a>{%- endif -%}
+                  {%- if block.settings.link_6_label != blank -%}<a href="{{ block.settings.link_6_url | default: '#' }}">{{ block.settings.link_6_label }}</a>{%- endif -%}
+                  {%- if block.settings.link_7_label != blank -%}<a href="{{ block.settings.link_7_url | default: '#' }}">{{ block.settings.link_7_label }}</a>{%- endif -%}
+                  {%- if block.settings.link_8_label != blank -%}<a href="{{ block.settings.link_8_url | default: '#' }}">{{ block.settings.link_8_label }}</a>{%- endif -%}
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+</div>
+
+<div class="nr-search-modal" aria-hidden="true">
+  <div class="nr-search-modal__bar">
+    <form action="{{ routes.search_url }}" method="get" role="search">
+      <input type="hidden" name="type" value="product">
+      <input type="search" name="q" placeholder="Search" autocomplete="off">
+    </form>
+    <button type="button" class="nr-search-modal__close" data-nr-search-close aria-label="Close">×</button>
+  </div>
+</div>
+
+<div class="nr-cart-overlay" data-nr-cart-close></div>
+<aside class="nr-cart-drawer" aria-label="Cart">
+  <div class="nr-cart-empty">
+    <div class="nr-cart-empty__top">
+      <h2 class="nr-cart-empty__title">Your bag is empty!</h2>
+      <button type="button" class="nr-cart-empty__close" data-nr-cart-close aria-label="Close">×</button>
+    </div>
+    <div class="nr-cart-empty__body">
+      <p>Let's get started</p>
+      <a class="nr-cart-empty__cta" href="{{ routes.all_products_collection_url }}">Shop Now</a>
+    </div>
+    <div class="nr-cart-curated">
+      <h4>Curated collection for you babe !! UPTO 50% Off</h4>
+      <div class="nr-cart-curated__row">
+        <img src="https://www.nishorama.com/cdn/shop/files/4_3266eda5-cd98-496a-bc96-ca70be2d7d4e.jpg?v=1787294056&width=200" alt="Moksha Halter Top">
+        <img src="https://www.nishorama.com/cdn/shop/files/11_5d0277bc-9876-42ad-813b-7f629f468269.jpg?v=1781873012&width=200" alt="White Loose fitting pants">
+        <img src="https://www.nishorama.com/cdn/shop/files/IMG_5680.jpg?v=1768820369&width=200" alt="Meera Open-Back Kurti Top">
+        <img src="https://www.nishorama.com/cdn/shop/files/63_ccbefec9-c2c0-42b5-9fa4-1bcce24905e1.png?v=1771569222&width=200" alt="YAMI CORSET KURTI">
+      </div>
+    </div>
+    <div class="nr-cart-trust">
+      <span>All Taxes & Duties Included</span>
+      <span>7Days Free Return and No Question Ask</span>
+    </div>
+  </div>
+</aside>
+
+<script src="{{ 'nr-header.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "NR Header",
+  "tag": "section",
+  "class": "nr-header-section",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    { "type": "text", "id": "tagline", "label": "Homepage tagline", "default": "\" YOU know where to GET  IT \"" },
+    { "type": "text", "id": "announcement", "label": "Mobile announcement", "default": "10% OFF Automatically Applied on Orders ₹2,599+" },
+    { "type": "checkbox", "id": "show_offer", "label": "Show leaving soon chip", "default": true },
+    { "type": "text", "id": "offer_text", "label": "Offer text", "default": "Leaving soon" },
+    { "type": "text", "id": "offer_badge", "label": "Offer badge", "default": "30% OFF" },
+    { "type": "url", "id": "offer_url", "label": "Offer link" },
+    { "type": "image_picker", "id": "menu_image_1", "label": "Mega menu image 1" },
+    { "type": "image_picker", "id": "menu_image_2", "label": "Mega menu image 2" },
+    { "type": "image_picker", "id": "menu_image_3", "label": "Mega menu image 3" },
+    { "type": "text", "id": "email", "label": "Support email", "default": "support@nishorama.com" },
+    { "type": "text", "id": "phone", "label": "Phone tel", "default": "+919511948736" },
+    { "type": "text", "id": "phone_label", "label": "Phone label", "default": "+91 9511948736" },
+    { "type": "text", "id": "support_hours", "label": "Support hours", "default": "Revert within 24-48 Working Hours" },
+    { "type": "url", "id": "faq_url", "label": "FAQ URL" },
+    { "type": "url", "id": "privacy_url", "label": "Privacy URL" },
+    { "type": "url", "id": "terms_url", "label": "Terms URL" },
+    { "type": "url", "id": "returns_url", "label": "Returns URL" }
+  ],
+  "blocks": [
+    {
+      "type": "pill",
+      "name": "Nav pill",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "New in" },
+        { "type": "url", "id": "url", "label": "Link" },
+        { "type": "checkbox", "id": "red_dot", "label": "Red dot", "default": false }
+      ]
+    },
+    {
+      "type": "featured_link",
+      "name": "Mega featured link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "NEW IN" },
+        { "type": "url", "id": "url", "label": "Link" },
+        { "type": "text", "id": "badge", "label": "Badge" }
+      ]
+    },
+    {
+      "type": "column",
+      "name": "Mega column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "KURTIS" },
+        { "type": "text", "id": "link_1_label", "label": "Link 1" },
+        { "type": "url", "id": "link_1_url", "label": "Link 1 URL" },
+        { "type": "text", "id": "link_1_badge", "label": "Link 1 badge" },
+        { "type": "select", "id": "link_1_badge_style", "label": "Badge style", "options": [{"value":"none","label":"None"},{"value":"yellow","label":"Yellow"},{"value":"red","label":"Red"}], "default": "none" },
+        { "type": "checkbox", "id": "link_1_italic", "label": "Link 1 italic", "default": false },
+        { "type": "text", "id": "link_2_label", "label": "Link 2" },
+        { "type": "url", "id": "link_2_url", "label": "Link 2 URL" },
+        { "type": "text", "id": "link_3_label", "label": "Link 3" },
+        { "type": "url", "id": "link_3_url", "label": "Link 3 URL" },
+        { "type": "text", "id": "link_4_label", "label": "Link 4" },
+        { "type": "url", "id": "link_4_url", "label": "Link 4 URL" },
+        { "type": "text", "id": "link_5_label", "label": "Link 5" },
+        { "type": "url", "id": "link_5_url", "label": "Link 5 URL" },
+        { "type": "text", "id": "link_6_label", "label": "Link 6" },
+        { "type": "url", "id": "link_6_url", "label": "Link 6 URL" },
+        { "type": "text", "id": "link_7_label", "label": "Link 7" },
+        { "type": "url", "id": "link_7_url", "label": "Link 7 URL" },
+        { "type": "text", "id": "link_8_label", "label": "Link 8 (italic Shop All)" },
+        { "type": "url", "id": "link_8_url", "label": "Link 8 URL" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "NR Header" }]
+}
+{% endschema %}

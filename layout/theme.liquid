@@ -19,6 +19,11 @@
 
     {%- render 'meta-tags' -%}
     {%- render 'stylesheets' -%}
+    {{ 'nr-theme.css' | asset_url | stylesheet_tag }}
+    {{ 'nr-featured.css' | asset_url | stylesheet_tag }}
+    {{ 'nr-footer.css' | asset_url | stylesheet_tag }}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300;0,400;0,500;0,600;0,700;1,100;1,400;1,500&family=Assistant:wght@400;600;700&display=swap">
     {%- render 'card-hover-effect-styles' -%}
     {%- render 'fonts' -%}
     {%- render 'scripts' -%}
@@ -32,7 +37,7 @@
     {{ content_for_header }}
   </head>
 
-  <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
+  <body class="nr-theme page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
     {% render 'skip-to-content-link', href: '#MainContent', text: 'accessibility.skip_to_text' %}
 
     {% render 'chat-drawer' %}
@@ -165,7 +170,11 @@
       </footer>
     </div>
 
-    {% render 'cart-drawer', render_wrapper: true %}
+    <script src="{{ 'nr-home.js' | asset_url }}" defer></script>
+    {% comment %} Fabric cart drawer hidden; NR header owns cart UI {% endcomment %}
+    <div class="nr-fabric-cart-hidden" hidden>
+      {% render 'cart-drawer', render_wrapper: true %}
+    </div>
     {% render 'theme-drawer' %}
 
     {% render 'search-modal' %}

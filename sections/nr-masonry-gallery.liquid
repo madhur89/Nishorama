@@ -1,0 +1,59 @@
+<link rel="stylesheet" href="{{ 'nr-gallery.css' | asset_url }}">
+<link rel="stylesheet" href="{{ 'nr-footer.css' | asset_url }}">
+{%- liquid
+  assign defaults = 'https://www.nishorama.com/cdn/shop/files/5_7c16a3dc-1006-4a00-bc13-ecf151ab0e1d.png?v=1783716065&width=1000,https://www.nishorama.com/cdn/shop/files/DSC01893.jpg?v=1783715913&width=600,https://www.nishorama.com/cdn/shop/files/4_a5ba5478-e2bc-414e-a14e-975be9c6a6bc.png?v=1783716164&width=600,https://www.nishorama.com/cdn/shop/files/1_cd52efd0-ed67-4574-9a18-805281480563.png?v=1783716038&width=600,https://www.nishorama.com/cdn/shop/files/DSC02412.jpg?v=1783715870&width=600,https://www.nishorama.com/cdn/shop/files/1_5_dd925f13-11fb-493c-a708-4bd6a877513a.png?v=1783715973&width=1000,https://www.nishorama.com/cdn/shop/files/3_4_a49fc10f-9792-462a-b415-073a169eef26.png?v=1783715989&width=600,https://www.nishorama.com/cdn/shop/files/7_1_71490700-f894-4323-a17e-43f06da24c.png?v=1783715959&width=600' | split: ','
+-%}
+<section class="gallery-grid-wrapper desktop">
+  <main class="gallery-grid-main" style="animation-duration:{{ section.settings.speed }}s">
+    {%- for i in (1..2) -%}
+      <div class="gallery-grid">
+        {%- for block in section.blocks -%}
+          {%- assign idx = forloop.index -%}
+          <div class="item item-{{ idx }}" {% if block.settings.url != blank %}onclick="location.href='{{ block.settings.url }}'"{% endif %} {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', alt: '' }}
+            {%- else -%}
+              <img src="{{ block.settings.fallback | default: defaults[forloop.index0] }}" alt="" loading="lazy">
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endfor -%}
+  </main>
+</section>
+<section class="gallery-grid-wrapper mobile">
+  <main class="gallery-grid-main" style="animation-duration:{{ section.settings.speed }}s">
+    <div class="gallery-grid">
+      {%- for block in section.blocks -%}
+        <div class="item item-{{ forloop.index }}">
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: '' }}
+          {%- else -%}
+            <img src="{{ block.settings.fallback | default: defaults[forloop.index0] }}" alt="" loading="lazy">
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </main>
+</section>
+
+{% schema %}
+{
+  "name": "NR Masonry gallery",
+  "settings": [
+    { "type": "range", "id": "speed", "min": 20, "max": 80, "step": 1, "unit": "s", "label": "Marquee duration", "default": 51 }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "fallback", "label": "Fallback URL" },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "NR Masonry gallery" }]
+}
+{% endschema %}

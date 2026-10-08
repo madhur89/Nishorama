@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="{{ 'nr-timer.css' | asset_url }}">
+{%- assign end_iso = section.settings.end_date | default: '2026-10-16T23:59:59' -%}
+<section class="timer-section-main desktop" data-nr-timer="{{ end_iso }}">
+  <span class="rope-1"></span><span class="rope-2"></span><span class="rope-3"></span><span class="rope-4"></span>
+  <div class="html-component" id="text-content">
+    <div class="timer-wrapper">
+      <div class="timer-left">
+        <h1>{{ section.settings.heading_1 }} <p>{{ section.settings.heading_2 }}</p></h1>
+        <span>{{ section.settings.subheading }}</span>
+      </div>
+      <div class="timer-right">
+        <div class="timer-value"><p data-days>07</p><span>days</span></div>
+        <div class="timer-value"><p data-hours>04</p><span>hours</span></div>
+        <div class="timer-value"><p data-minutes>12</p><span>minutes</span></div>
+        <div class="timer-value"><p data-seconds>02</p><span>seconds</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="timer-section-main mobile" data-nr-timer="{{ end_iso }}">
+  <span class="rope-1"></span><span class="rope-2"></span><span class="rope-3"></span><span class="rope-4"></span>
+  <div class="html-component">
+    <div class="timer-wrapper">
+      <div class="timer-left">
+        <h1>{{ section.settings.heading_1 }} <p>{{ section.settings.heading_2 }}</p></h1>
+        <span>{{ section.settings.subheading }}</span>
+      </div>
+      <div class="timer-right">
+        <div class="timer-value"><p data-days>07</p><span>days</span></div>
+        <div class="timer-value"><p data-hours>04</p><span>hours</span></div>
+        <div class="timer-value"><p data-minutes>12</p><span>minutes</span></div>
+        <div class="timer-value"><p data-seconds>02</p><span>seconds</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "NR Offer timer",
+  "settings": [
+    { "type": "text", "id": "heading_1", "label": "Heading", "default": "Leaving" },
+    { "type": "text", "id": "heading_2", "label": "Heading italic", "default": "soon" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Get 30% Off on our seasonal sale!" },
+    { "type": "text", "id": "end_date", "label": "End datetime (ISO)", "default": "2026-10-16T23:59:59", "info": "Example 2026-10-16T23:59:59" }
+  ],
+  "presets": [{ "name": "NR Offer timer" }]
+}
+{% endschema %}

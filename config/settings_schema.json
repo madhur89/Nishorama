@@ -2116,5 +2116,26 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "Nishorama",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Brand tokens for the custom Nishorama homepage layer."
+      },
+      {
+        "type": "color",
+        "id": "nr_brown",
+        "label": "Brand brown",
+        "default": "#482922"
+      },
+      {
+        "type": "color",
+        "id": "nr_background",
+        "label": "Page background",
+        "default": "#f5f5f5"
+      }
+    ]
   }
 ]

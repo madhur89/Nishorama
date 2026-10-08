@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="{{ 'nr-footer.css' | asset_url }}">
+<div class="nr-story-viewer" aria-hidden="true">
+  <button type="button" class="nr-story-viewer__close" data-nr-story-close aria-label="Close">×</button>
+  <div class="nr-story-viewer__frame">
+    {%- if section.settings.video != blank -%}
+      {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false }}
+    {%- else -%}
+      <video src="{{ section.settings.fallback_video | default: 'https://cdn.shopify.com/videos/c/o/v/cd417ebef4184c04b792429d8d1eeab3.mp4' }}" autoplay muted loop playsinline></video>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "NR Stories",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    { "type": "video", "id": "video", "label": "Story video" },
+    { "type": "text", "id": "fallback_video", "label": "Fallback video URL", "default": "https://cdn.shopify.com/videos/c/o/v/cd417ebef4184c04b792429d8d1eeab3.mp4" }
+  ],
+  "presets": [{ "name": "NR Stories" }]
+}
+{% endschema %}

@@ -1,0 +1,132 @@
+<link rel="stylesheet" href="{{ 'nr-footer.css' | asset_url }}">
+
+<div class="cust-footer-wrapper desktop add-space">
+  <div class="cust-footer-main">
+    <div class="footer-bottom">
+      <div class="footer-svg">
+        {%- if section.settings.wordmark != blank -%}
+          {{ section.settings.wordmark | image_url: width: 2400 | image_tag: alt: 'Footer logo' }}
+        {%- else -%}
+          <img src="{{ 'nr-footer-wordmark.svg' | asset_url }}" alt="Footer logo">
+        {%- endif -%}
+      </div>
+      <div class="footer-links">
+        <div class="footer-block">
+          <h3>{{ section.settings.col1_heading }}</h3>
+          {%- if section.settings.col1_l1 != blank -%}<a href="{{ section.settings.col1_u1 }}">{{ section.settings.col1_l1 }}</a>{%- endif -%}
+          {%- if section.settings.col1_l2 != blank -%}<a href="{{ section.settings.col1_u2 }}">{{ section.settings.col1_l2 }}</a>{%- endif -%}
+          {%- if section.settings.col1_l3 != blank -%}<a href="{{ section.settings.col1_u3 }}">{{ section.settings.col1_l3 }}</a>{%- endif -%}
+        </div>
+        <div class="footer-block">
+          <h3>{{ section.settings.col2_heading }}</h3>
+          {%- if section.settings.col2_l1 != blank -%}<a href="{{ section.settings.col2_u1 }}">{{ section.settings.col2_l1 }}</a>{%- endif -%}
+          {%- if section.settings.col2_l2 != blank -%}<a href="{{ section.settings.col2_u2 }}">{{ section.settings.col2_l2 }}</a>{%- endif -%}
+          {%- if section.settings.col2_l3 != blank -%}<a href="{{ section.settings.col2_u3 }}">{{ section.settings.col2_l3 }}</a>{%- endif -%}
+          {%- if section.settings.col2_l4 != blank -%}<a href="{{ section.settings.col2_u4 }}">{{ section.settings.col2_l4 }}</a>{%- endif -%}
+          {%- if section.settings.col2_l5 != blank -%}<a href="{{ section.settings.col2_u5 }}">{{ section.settings.col2_l5 }}</a>{%- endif -%}
+        </div>
+        <div class="footer-block">
+          <h3>{{ section.settings.col3_heading }}</h3>
+          {%- if section.settings.col3_l1 != blank -%}<a href="{{ section.settings.col3_u1 }}">{{ section.settings.col3_l1 }}</a>{%- endif -%}
+          {%- if section.settings.col3_l2 != blank -%}<a href="{{ section.settings.col3_u2 }}">{{ section.settings.col3_l2 }}</a>{%- endif -%}
+          {%- if section.settings.col3_l3 != blank -%}<a href="{{ section.settings.col3_u3 }}">{{ section.settings.col3_l3 }}</a>{%- endif -%}
+        </div>
+        <div class="contact-block">
+          <h4>{{ section.settings.company }}</h4>
+          <span><strong>Address:</strong>{{ section.settings.address }}</span>
+          <span><strong>Email:</strong>{{ section.settings.email }}</span>
+          <span><strong>Mob:</strong>{{ section.settings.phone }}</span>
+          <span><strong>Opening Hours:</strong>{{ section.settings.hours }}</span>
+        </div>
+      </div>
+      <div class="payment-svgs">
+        <div class="payment-methods">
+          <p>{{ section.settings.payments_label }}</p>
+          <div class="payment-icons">{{ shop.enabled_payment_types | payment_type_svg_tag }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">{{ section.settings.copyright }}</div>
+  </div>
+</div>
+
+<div class="cust-footer-wrapper mobile">
+  <details class="cust-footer-acc">
+    <summary>{{ section.settings.col1_heading }} <span>+</span></summary>
+    <div class="acc-links">
+      <a href="{{ section.settings.col1_u1 }}">{{ section.settings.col1_l1 }}</a>
+      <a href="{{ section.settings.col1_u2 }}">{{ section.settings.col1_l2 }}</a>
+      <a href="{{ section.settings.col1_u3 }}">{{ section.settings.col1_l3 }}</a>
+    </div>
+  </details>
+  <details class="cust-footer-acc">
+    <summary>{{ section.settings.col2_heading }} <span>+</span></summary>
+    <div class="acc-links">
+      <a href="{{ section.settings.col2_u1 }}">{{ section.settings.col2_l1 }}</a>
+      <a href="{{ section.settings.col2_u2 }}">{{ section.settings.col2_l2 }}</a>
+      <a href="{{ section.settings.col2_u3 }}">{{ section.settings.col2_l3 }}</a>
+      <a href="{{ section.settings.col2_u4 }}">{{ section.settings.col2_l4 }}</a>
+      <a href="{{ section.settings.col2_u5 }}">{{ section.settings.col2_l5 }}</a>
+    </div>
+  </details>
+  <details class="cust-footer-acc">
+    <summary>{{ section.settings.col3_heading }} <span>+</span></summary>
+    <div class="acc-links">
+      <a href="{{ section.settings.col3_u1 }}">{{ section.settings.col3_l1 }}</a>
+      <a href="{{ section.settings.col3_u2 }}">{{ section.settings.col3_l2 }}</a>
+      <a href="{{ section.settings.col3_u3 }}">{{ section.settings.col3_l3 }}</a>
+    </div>
+  </details>
+  <details class="cust-footer-acc">
+    <summary>{{ section.settings.company }} <span>+</span></summary>
+    <div class="acc-links">
+      <span><strong>Address:</strong>{{ section.settings.address }}</span>
+      <span><strong>Email:</strong>{{ section.settings.email }}</span>
+      <span><strong>Mob:</strong>{{ section.settings.phone }}</span>
+    </div>
+  </details>
+  <div class="footer-copyright">{{ section.settings.copyright }}</div>
+</div>
+
+{% schema %}
+{
+  "name": "NR Footer",
+  "enabled_on": { "groups": ["footer"] },
+  "settings": [
+    { "type": "image_picker", "id": "wordmark", "label": "Footer wordmark" },
+    { "type": "text", "id": "col1_heading", "label": "Column 1 heading", "default": "Connect with us" },
+    { "type": "text", "id": "col1_l1", "label": "Col 1 link 1", "default": "Call" },
+    { "type": "url", "id": "col1_u1", "label": "Col 1 URL 1" },
+    { "type": "text", "id": "col1_l2", "label": "Col 1 link 2", "default": "Instagram" },
+    { "type": "url", "id": "col1_u2", "label": "Col 1 URL 2" },
+    { "type": "text", "id": "col1_l3", "label": "Col 1 link 3", "default": "YouTube" },
+    { "type": "url", "id": "col1_u3", "label": "Col 1 URL 3" },
+    { "type": "text", "id": "col2_heading", "label": "Column 2 heading", "default": "Order Support" },
+    { "type": "text", "id": "col2_l1", "label": "Col 2 link 1", "default": "Make a return/Exchange" },
+    { "type": "url", "id": "col2_u1", "label": "Col 2 URL 1" },
+    { "type": "text", "id": "col2_l2", "label": "Col 2 link 2", "default": "Refund/Exchange policy" },
+    { "type": "url", "id": "col2_u2", "label": "Col 2 URL 2" },
+    { "type": "text", "id": "col2_l3", "label": "Col 2 link 3", "default": "Shipping policy" },
+    { "type": "url", "id": "col2_u3", "label": "Col 2 URL 3" },
+    { "type": "text", "id": "col2_l4", "label": "Col 2 link 4", "default": "FAQ's" },
+    { "type": "url", "id": "col2_u4", "label": "Col 2 URL 4" },
+    { "type": "text", "id": "col2_l5", "label": "Col 2 link 5", "default": "Terms" },
+    { "type": "url", "id": "col2_u5", "label": "Col 2 URL 5" },
+    { "type": "text", "id": "col3_heading", "label": "Column 3 heading", "default": "We Are Nishorama" },
+    { "type": "text", "id": "col3_l1", "label": "Col 3 link 1", "default": "Our story" },
+    { "type": "url", "id": "col3_u1", "label": "Col 3 URL 1" },
+    { "type": "text", "id": "col3_l2", "label": "Col 3 link 2", "default": "Contact us" },
+    { "type": "url", "id": "col3_u2", "label": "Col 3 URL 2" },
+    { "type": "text", "id": "col3_l3", "label": "Col 3 link 3", "default": "Customer Reviews" },
+    { "type": "url", "id": "col3_u3", "label": "Col 3 URL 3" },
+    { "type": "text", "id": "company", "label": "Company", "default": "Nishorama Pvt Ltd" },
+    { "type": "textarea", "id": "address", "label": "Address", "default": "1143, Lower Ground Floor, Rustomjee Ease Zone Mall, Sunder Nagar, Malad West, Mumbai-400064" },
+    { "type": "text", "id": "email", "label": "Email", "default": "support@nishorama.com" },
+    { "type": "text", "id": "phone", "label": "Phone", "default": "+91 9511948736" },
+    { "type": "text", "id": "hours", "label": "Hours", "default": "Mon to Sat: 10:30AM - 6:30PM" },
+    { "type": "text", "id": "payments_label", "label": "Payments label", "default": "We accept all major payment methods." },
+    { "type": "text", "id": "copyright", "label": "Copyright", "default": "Designed by Nishorama | © Nishorama 2026" }
+  ],
+  "presets": [{ "name": "NR Footer" }]
+}
+{% endschema %}
