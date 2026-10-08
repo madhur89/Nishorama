@@ -1,0 +1,115 @@
+/** Shopify CDN: Minification failed
+
+Line 115:4 Expected "}" to go with "{"
+
+**/
+
+section.cust-collection-section {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+.cust-collection-img {
+    height: 100%;
+    width: 100%;
+    border-radius: 4vw;
+    overflow: hidden;
+}
+
+.cust-collection-details {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    gap: 3vw;
+    align-items: center;
+    z-index: 1;
+}
+
+.cust-collection-button {
+    line-height: 1;
+    padding: 1vw 2vw;
+    border: none;
+    background-color: #fff;
+    -webkit-backdrop-filter: blur(30px);
+    /* backdrop-filter: blur(30px); */
+    color: #482922;
+    font-family: Archivo, sans-serif;
+    font-style: normal;
+    font-size: .8vw;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    /* backdrop-filter: blur(20px); */
+    -webkit-backdrop-filter: blur(20px);
+    /* box-shadow: 0 8px 32px #0000001a, inset 1px -1px #ffffff59, inset -1px 1px #fff6, inset 0 0 20px 10px #00000038; */
+    border: 1px solid #d5d5d5;
+}
+
+.cust-collection-container {
+    padding: 0 1.5vw 1.5vw;
+    height: 100%;
+    width: 100%;
+    top: 0;
+}
+@media screen and (max-width: 950px) {
+    section.cust-collection-section{
+        height: 145vw;
+    }
+    .cust-collection-container{
+        padding: 4vw 2vw!important;
+    }
+    .cust-collection-details{
+        /* transform: translateX(-50%);
+        left: 50%;
+        bottom: 10%;
+        top: unset; */
+    }
+    .cust-collection-details .cust-collection-button{
+        font-size: 2.5vw;
+        line-height: 1;
+        padding: 2.5vw 5vw;
+    }
+.cust-collection-img{
+    border-radius:14vw;
+    position: relative;
+}
+.cust-collection-img span.mobile{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    opacity: 0.25;
+}
+/* @media screen and (max-width: 950px) {
+
+    section.cust-collection-section {
+        height: 100svh;
+    }
+
+    .cust-collection-details { 
+        bottom: 25%;
+        width: 100%;
+        gap: 10vw;
+    }
+
+    .cust-collection-heading {
+        font-size: 7.5vw;
+    }
+
+    .cust-collection-subtitle {
+        font-size: 2.4vw;
+    }
+
+    .cust-collection-button {
+        padding: 3vw 7vw;
+        font-size: 2.6vw;
+        border-radius: 2.5vw;
+    }
+
+
+
+} */
